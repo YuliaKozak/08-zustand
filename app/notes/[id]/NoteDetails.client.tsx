@@ -17,21 +17,17 @@ const NoteDetailsClient = () => {
     queryKey: ["note", id],
     queryFn: () => fetchSingleNote(id),
     refetchOnMount: false,
-    enabled: !!id, // Запит не почнеться, поки id не завантажиться з URL
+    enabled: !!id,
   });
 
-  // Обробка стану завантаження
   if (isLoading) return <p className={css.loading}>Loading...</p>;
 
-  // Обробка помилки або відсутності нотатки
   if (error || !note) return <p className={css.error}>Some error..</p>;
 
-  // Форматування дати
   const formattedDate = note.createdAt
     ? new Date(note.createdAt).toLocaleDateString()
     : "Unknown date";
 
-  // Функція повернення на попередню сторінку
   const handleGoBack = () => {
     router.back();
   };
@@ -39,7 +35,6 @@ const NoteDetailsClient = () => {
   return (
     <main className={css.main}>
       <div className={css.container}>
-        {/* Кнопка "Назад" тепер інтегрована у вашу стильну верстку */}
         <button onClick={handleGoBack} className={css.backButton}>
           ← Back
         </button>
